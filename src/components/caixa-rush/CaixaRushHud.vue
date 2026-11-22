@@ -3,7 +3,9 @@
     <div class="panel row items-center justify-between q-pa-sm q-gutter-xs">
       <div class="column">
         <div class="text-subtitle1 text-weight-bolder text-amber-4">SG CAIXA RUSH GAME</div>
-        <div class="text-caption text-grey-4">SGBR Sistemas LTDA</div>
+        <div class="text-caption text-grey-4">
+          SGBR Sistemas LTDA: Automação comercial e gestão empresarial.
+        </div>
       </div>
 
       <div class="row items-center q-gutter-xs">

@@ -26,11 +26,6 @@ export const START_HIGHLIGHTS: PromoHighlight[] = [
 
 export const END_HIGHLIGHTS: PromoHighlight[] = [
   {
-    id: 'sgbr-sistemas',
-    title: 'SGBR Sistemas LTDA',
-    description: 'Automação comercial e gestão empresarial.',
-  },
-  {
     id: 'sg-master',
     title: 'SG Master',
     description: 'Gestão completa para varejo e serviços no ambiente DESKTOP.',
@@ -44,7 +39,7 @@ export const END_HIGHLIGHTS: PromoHighlight[] = [
   {
     id: 'sg-pdv-mobile',
     title: 'SG PDV Mobile',
-    description: 'Agilidade nas vendas móveis.',
+    description: 'Agilidade nas vendas móveis com praticidade.',
   },
   {
     id: 'meusg',
@@ -54,12 +49,22 @@ export const END_HIGHLIGHTS: PromoHighlight[] = [
   {
     id: 'sg-agenda',
     title: 'SG Agenda',
-    description: 'Agenda inteligente para clientes.',
+    description: 'Agenda inteligente para clientes de serviços, clínicas e odontologia.',
   },
   {
     id: 'super-bio',
     title: 'SuperBio',
-    description: 'Pagamentos por Reconhecimento Facial.',
+    description: 'Pagamentos rápidos e seguros com reconhecimento facial.',
+  },
+  {
+    id: 'passou-lavou',
+    title: 'Passou e lavou',
+    description: 'Serviços de lavagem automatizados, prático e eficiente.',
+  },
+  {
+    id: 'mymoment-parfum',
+    title: 'My Moment Parfum',
+    description: 'Perfumes com pagamento e liberação automática via QR Code.',
   },
 ];
 
