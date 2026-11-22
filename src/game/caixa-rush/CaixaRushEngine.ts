@@ -14,9 +14,12 @@ import {
 } from './caixaRushTypes';
 
 const BEST_STORAGE_KEY = 'sg_caixa_rush_quasar_best_v1';
-const ITEM_WIDTH = 92;
-const ITEM_HEIGHT = 18;
+const ITEM_WIDTH = 128;
+const ITEM_HEIGHT = 85;
 const ROUND_TOTAL_SECONDS = 60;
+const ATLAS_COLS = 4;
+const ATLAS_ROWS = 4;
+const ATLAS_SRC = '/images/AtlasItens.png';
 
 interface VictoryConfetti {
   x: number;
@@ -30,6 +33,8 @@ interface VictoryConfetti {
   maxLife: number;
   color: string;
 }
+
+type ConveyorRenderItem = ConveyorItem & { atlasIndex: number };
 
 export class CaixaRushEngine {
   private readonly audio = new CaixaRushAudio();
@@ -48,7 +53,7 @@ export class CaixaRushEngine {
   private goodMissedCount = 0;
   private badScannedCount = 0;
 
-  private items: ConveyorItem[] = [];
+  private items: ConveyorRenderItem[] = [];
   private particles: Particle[] = [];
   private victoryConfetti: VictoryConfetti[] = [];
   private floatTexts: FloatText[] = [];
@@ -61,9 +66,21 @@ export class CaixaRushEngine {
   private moveLeft = false;
   private moveRight = false;
 
+  private atlasImage: HTMLImageElement | null = null;
+  private atlasLoaded = false;
+
   constructor() {
     const saved = Number(localStorage.getItem(BEST_STORAGE_KEY) || 0);
     this.bestScore = Number.isFinite(saved) ? saved : 0;
+
+    if (typeof Image !== 'undefined') {
+      const img = new Image();
+      img.onload = () => {
+        this.atlasImage = img;
+        this.atlasLoaded = true;
+      };
+      img.src = ATLAS_SRC;
+    }
   }
 
   public getMultiplier(): number {
@@ -215,9 +232,12 @@ export class CaixaRushEngine {
 
     const speedBase = 115 + (ROUND_TOTAL_SECONDS - this.timeLeft) * 1.4;
     const speed = speedBase * (0.88 + Math.random() * 0.35);
+    const totalCells = ATLAS_COLS * ATLAS_ROWS;
 
     if (isBad) {
-      const tpl = BAD_ITEMS[Math.floor(Math.random() * BAD_ITEMS.length)] ?? BAD_ITEMS[0];
+      const randIdx = Math.floor(Math.random() * BAD_ITEMS.length);
+      const tpl = BAD_ITEMS[randIdx] ?? BAD_ITEMS[0];
+      const atlasIndex = (9 + randIdx) % totalCells;
       this.items.push({
         id: this.nextItemId++,
         x: fromLeft ? -55 : CANVAS_WIDTH + 55,
@@ -230,9 +250,12 @@ export class CaixaRushEngine {
         color: tpl.color,
         points: 0,
         penaltyTime: tpl.penaltyTime,
+        atlasIndex,
       });
     } else {
-      const tpl = GOOD_ITEMS[Math.floor(Math.random() * GOOD_ITEMS.length)] ?? GOOD_ITEMS[0];
+      const randIdx = Math.floor(Math.random() * GOOD_ITEMS.length);
+      const tpl = GOOD_ITEMS[randIdx] ?? GOOD_ITEMS[0];
+      const atlasIndex = randIdx % totalCells;
       this.goodTotalCount += 1;
       this.items.push({
         id: this.nextItemId++,
@@ -246,6 +269,7 @@ export class CaixaRushEngine {
         color: tpl.color,
         points: tpl.points,
         penaltyTime: 0,
+        atlasIndex,
       });
     }
   }
@@ -438,20 +462,46 @@ export class CaixaRushEngine {
       const left = it.x - it.w / 2;
       const top = it.y - it.h / 2;
 
-      ctx.fillStyle = it.color;
-      ctx.beginPath();
-      ctx.roundRect(left, top, it.w, it.h, 6);
-      ctx.fill();
+      if (this.atlasLoaded && this.atlasImage && this.atlasImage.width > 0) {
+        const cellW = this.atlasImage.width / ATLAS_COLS;
+        const cellH = this.atlasImage.height / ATLAS_ROWS;
+        const col = it.atlasIndex % ATLAS_COLS;
+        const row = Math.floor(it.atlasIndex / ATLAS_COLS) % ATLAS_ROWS;
+        const pad = 2;
 
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+        ctx.drawImage(
+          this.atlasImage,
+          col * cellW + pad,
+          row * cellH + pad,
+          Math.max(1, cellW - pad * 2),
+          Math.max(1, cellH - pad * 2),
+          left,
+          top,
+          it.w,
+          it.h,
+        );
+      } else {
+        ctx.fillStyle = it.color;
+        ctx.beginPath();
+        ctx.roundRect(left, top, it.w, it.h, 6);
+        ctx.fill();
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '700 10px system-ui, sans-serif';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      // Nome sempre impresso sobre o item com contorno para leitura nítida
+      ctx.save();
+      ctx.font = '800 11px system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(it.label, it.x, it.y);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(9, 13, 22, 0.9)';
+      ctx.strokeText(it.label, it.x, it.y + 0.5);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(it.label, it.x, it.y + 0.5);
+      ctx.restore();
     });
 
     ctx.fillStyle = '#0284c7';

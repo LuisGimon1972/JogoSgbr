@@ -12,6 +12,7 @@ export interface ConveyorItem {
   color: string;
   points: number;
   penaltyTime: number;
+  atlasIndex: number;
 }
 
 export interface Particle {
@@ -58,16 +59,16 @@ export const LANES_Y = [75, 145, 215] as const;
 export const SCANNER_Y = 292;
 
 export const GOOD_ITEMS = [
-  { label: 'VENDA PDV', color: '#ef4444', points: 100 },
-  { label: 'EFICIÊNCIA', color: '#38bdf8', points: 120 },
+  { label: 'ESTABILIDADE', color: '#ef4444', points: 100 },
+  { label: 'PRECISÃO', color: '#38bdf8', points: 120 },
   { label: 'NFC-e OK', color: '#c2410c', points: 140 },
-  { label: 'AGILIDADE', color: '#8a17f5', points: 140 },
-  { label: 'ORGANIZAÇÃO', color: '#8d3f07', points: 140 },
+  { label: 'RAPIDEZ', color: '#8a17f5', points: 140 },
+  { label: 'INTEGRIDADE', color: '#8d3f07', points: 140 },
   { label: 'AGILIDADE', color: '#440625', points: 140 },
-  { label: 'ESTABILIDADE', color: '#1b0204', points: 140 },
+  { label: 'TRANSPARENCIA', color: '#1b0204', points: 140 },
   { label: 'CONTROLE', color: '#066374', points: 140 },
   { label: 'BOM SERVIÇO', color: '#b91c1c', points: 140 },
-  { label: 'EXCELÊNCIA', color: '#ee140c', points: 140 },
+  { label: 'SEGURANÇA', color: '#ee140c', points: 140 },
 ] as const;
 
 export const BAD_ITEMS = [
