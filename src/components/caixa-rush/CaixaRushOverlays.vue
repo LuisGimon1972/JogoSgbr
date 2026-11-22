@@ -7,8 +7,8 @@
     >
       <div class="text-subtitle1 text-weight-bold text-amber-2">SG CAIXA RUSH GAME</div>
       <p class="text-caption text-grey-3 q-ma-none overlay-desc">
-        Para vencer, clique em <strong>todos os itens certos</strong> no tempo estipulado e
-        <strong>não clique nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
+        Para vencer, marque <strong>todos os itens certos</strong> no tempo estipulado e
+        <strong>não marque nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
         Bugs, Lentidão, Rejeição, Duplicidade, Rejeição...).
       </p>
 
@@ -393,29 +393,29 @@ function onToggle(val: boolean | null) {
   }
 }
 
-/* Resolução 320x533 e telas estreitas/curtas */
-@media (max-width: 360px) and (max-height: 600px) {
+/* Resoluções menores ou iguais a 214x533 */
+@media (max-width: 214px) and (max-height: 533px) {
   .overlay {
     justify-content: flex-start !important;
-    padding: 4px 6px 6px !important;
+    padding: 3px 4px 4px !important;
     gap: 2px !important;
     overflow-y: auto !important;
   }
 
   .overlay .text-subtitle1 {
-    font-size: 0.78rem !important;
-    line-height: 1.1 !important;
+    font-size: 0.68rem !important;
+    line-height: 1.05 !important;
   }
 
   .overlay-desc {
     max-width: 100%;
-    font-size: 0.56rem !important;
-    line-height: 1.12 !important;
+    font-size: 0.5rem !important;
+    line-height: 1.08 !important;
   }
 
   .level-toggle {
-    font-size: 0.6rem !important;
-    min-height: 20px !important;
+    font-size: 0.52rem !important;
+    min-height: 18px !important;
   }
 
   .highlights-wrap {
@@ -424,9 +424,9 @@ function onToggle(val: boolean | null) {
   }
 
   .promo-mini {
-    flex: 1 1 calc(50% - 4px);
-    max-width: 142px;
-    min-width: 92px;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   .promo-card-body {
@@ -434,26 +434,28 @@ function onToggle(val: boolean | null) {
   }
 
   .promo-title {
-    font-size: 0.56rem !important;
+    font-size: 0.52rem !important;
     line-height: 1.05 !important;
-    margin-bottom: 1px !important;
+    margin-bottom: 0 !important;
   }
 
   .promo-desc {
-    font-size: 0.52rem !important;
-    line-height: 1.08 !important;
+    display: none !important;
   }
 
   .actions-wrap {
-    gap: 4px !important;
+    flex-direction: column !important;
+    gap: 3px !important;
     margin-top: 2px !important;
     flex-shrink: 0;
+    width: 100%;
   }
 
   .action-btn {
-    font-size: 8.5px !important;
-    padding: 3px 6px !important;
-    min-height: 22px !important;
+    width: 100%;
+    font-size: 8px !important;
+    padding: 2px 5px !important;
+    min-height: 20px !important;
   }
 }
 </style>
