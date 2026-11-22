@@ -12,6 +12,18 @@
         Bugs, Lentidão, Rejeição, Duplicidades, Rejeição...).
       </p>
 
+      <div class="row items-center justify-center q-mt-xs">
+        <q-toggle
+          dense
+          dark
+          :model-value="currentLevel === 'hard'"
+          color="amber-6"
+          class="level-toggle text-grey-2"
+          :label="currentLevel === 'hard' ? 'Nível: Difícil' : 'Nível: Fácil'"
+          @update:model-value="onToggle"
+        />
+      </div>
+
       <div class="row q-gutter-xs full-width justify-center items-start q-mt-xs highlights-wrap">
         <q-card v-for="item in START_HIGHLIGHTS" :key="item.id" flat bordered class="promo-mini">
           <q-card-section class="promo-card-body text-left">
@@ -87,6 +99,18 @@
         </template>
       </p>
 
+      <div class="row items-center justify-center q-mt-xs relative-position">
+        <q-toggle
+          dense
+          dark
+          :model-value="currentLevel === 'hard'"
+          color="amber-6"
+          class="level-toggle text-grey-2"
+          :label="currentLevel === 'hard' ? 'Nível: Difícil' : 'Nível: Fácil'"
+          @update:model-value="onToggle"
+        />
+      </div>
+
       <div
         class="row q-gutter-xs full-width justify-center items-start q-mt-xs relative-position highlights-wrap"
       >
@@ -134,6 +158,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import type { CaixaRushSnapshot } from '../../game/caixa-rush/caixaRushTypes';
 import {
   END_HIGHLIGHTS,
@@ -163,15 +188,33 @@ const confettiPieces: ConfettiPiece[] = Array.from({ length: 28 }, (_, idx) => (
   drift: (idx % 2 === 0 ? 1 : -1) * (14 + (idx % 4) * 7),
 }));
 
-defineProps<{
+const props = defineProps<{
   hud: CaixaRushSnapshot;
   copied: boolean;
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   start: [];
   copy: [];
+  'toggle-level': [level: 'easy' | 'hard'];
 }>();
+
+const currentLevel = ref<'easy' | 'hard'>(props.hud.level ?? 'easy');
+
+watch(
+  () => props.hud.level,
+  (nextLevel) => {
+    if (nextLevel === 'easy' || nextLevel === 'hard') {
+      currentLevel.value = nextLevel;
+    }
+  },
+);
+
+function onToggle(val: boolean | null) {
+  const nextLevel: 'easy' | 'hard' = val ? 'hard' : 'easy';
+  currentLevel.value = nextLevel;
+  emit('toggle-level', nextLevel);
+}
 </script>
 
 <style scoped>
@@ -236,6 +279,12 @@ defineEmits<{
   line-height: 1.4;
 }
 
+.level-toggle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+
 .promo-mini {
   min-height: 0;
   height: auto;
@@ -290,6 +339,10 @@ defineEmits<{
     max-width: 100%;
     font-size: 0.7rem;
     line-height: 1.32;
+  }
+
+  .level-toggle {
+    font-size: 0.7rem;
   }
 
   .highlights-wrap {

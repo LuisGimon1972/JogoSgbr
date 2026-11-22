@@ -13,6 +13,8 @@ import {
   SCANNER_Y,
 } from './caixaRushTypes';
 
+export type GameLevel = 'easy' | 'hard';
+
 const BEST_STORAGE_KEY = 'sg_caixa_rush_quasar_best_v1';
 const ITEM_WIDTH = 128;
 const ITEM_HEIGHT = 85;
@@ -39,6 +41,7 @@ type ConveyorRenderItem = ConveyorItem & { atlasIndex: number };
 export class CaixaRushEngine {
   private readonly audio = new CaixaRushAudio();
 
+  private level: GameLevel = 'easy';
   private running = false;
   private finished = false;
   private victory = false;
@@ -83,6 +86,20 @@ export class CaixaRushEngine {
     }
   }
 
+  public getLevel(): GameLevel {
+    return this.level;
+  }
+
+  public setLevel(nextLevel: GameLevel): GameLevel {
+    this.level = nextLevel;
+    return this.level;
+  }
+
+  public toggleLevel(): GameLevel {
+    this.level = this.level === 'easy' ? 'hard' : 'easy';
+    return this.level;
+  }
+
   public getMultiplier(): number {
     return 1 + Math.floor(this.combo / 3);
   }
@@ -112,6 +129,7 @@ export class CaixaRushEngine {
       running: this.running,
       finished: this.finished,
       victory: this.victory,
+      level: this.level,
       score: this.score,
       bestScore: this.bestScore,
       combo: this.combo,
@@ -152,7 +170,7 @@ export class CaixaRushEngine {
     this.particles = [];
     this.victoryConfetti = [];
     this.floatTexts = [];
-    this.spawnTimer = 0.2;
+    this.spawnTimer = this.level === 'easy' ? 0.35 : 0.2;
     this.lastSecTick = now;
     this.scannerX = CANVAS_WIDTH / 2;
   }
@@ -225,19 +243,24 @@ export class CaixaRushEngine {
   }
 
   private spawnItem(): void {
+    const isEasy = this.level === 'easy';
     const laneIdx = Math.floor(Math.random() * LANES_Y.length);
     const y = LANES_Y[laneIdx] ?? LANES_Y[0];
     const fromLeft = laneIdx % 2 === 0;
-    const isBad = Math.random() < 0.32;
+    const badChance = isEasy ? 0.2 : 0.32;
+    const isBad = Math.random() < badChance;
 
-    const speedBase = 115 + (ROUND_TOTAL_SECONDS - this.timeLeft) * 1.4;
-    const speed = speedBase * (0.88 + Math.random() * 0.35);
+    const elapsed = ROUND_TOTAL_SECONDS - this.timeLeft;
+    const speedBase = isEasy ? 75 + elapsed * 0.85 : 115 + elapsed * 1.4;
+    const speed = speedBase * (isEasy ? 0.85 + Math.random() * 0.25 : 0.88 + Math.random() * 0.35);
     const totalCells = ATLAS_COLS * ATLAS_ROWS;
 
     if (isBad) {
       const randIdx = Math.floor(Math.random() * BAD_ITEMS.length);
       const tpl = BAD_ITEMS[randIdx] ?? BAD_ITEMS[0];
       const atlasIndex = (9 + randIdx) % totalCells;
+      const penaltyTime = isEasy ? Math.max(1, Math.round(tpl.penaltyTime * 0.5)) : tpl.penaltyTime;
+
       this.items.push({
         id: this.nextItemId++,
         x: fromLeft ? -55 : CANVAS_WIDTH + 55,
@@ -249,7 +272,7 @@ export class CaixaRushEngine {
         label: tpl.label,
         color: tpl.color,
         points: 0,
-        penaltyTime: tpl.penaltyTime,
+        penaltyTime,
         atlasIndex,
       });
     } else {
@@ -257,6 +280,7 @@ export class CaixaRushEngine {
       const tpl = GOOD_ITEMS[randIdx] ?? GOOD_ITEMS[0];
       const atlasIndex = randIdx % totalCells;
       this.goodTotalCount += 1;
+
       this.items.push({
         id: this.nextItemId++,
         x: fromLeft ? -55 : CANVAS_WIDTH + 55,
@@ -305,7 +329,8 @@ export class CaixaRushEngine {
     if (item.isBad) {
       this.badScannedCount += 1;
       this.combo = 0;
-      this.score = Math.max(0, this.score - 50);
+      const scorePenalty = this.level === 'easy' ? 25 : 50;
+      this.score = Math.max(0, this.score - scorePenalty);
       this.timeLeft = Math.max(0, this.timeLeft - item.penaltyTime);
       this.audio.playError();
       this.addBurst(item.x, item.y, '#ef4444', `-${item.penaltyTime}s!`);
@@ -424,7 +449,11 @@ export class CaixaRushEngine {
     this.spawnTimer -= dt;
     if (this.spawnTimer <= 0) {
       this.spawnItem();
-      this.spawnTimer = Math.max(0.45, 0.92 - (ROUND_TOTAL_SECONDS - this.timeLeft) * 0.006);
+      const elapsed = ROUND_TOTAL_SECONDS - this.timeLeft;
+      this.spawnTimer =
+        this.level === 'easy'
+          ? Math.max(0.85, 1.45 - elapsed * 0.008)
+          : Math.max(0.45, 0.92 - elapsed * 0.006);
     }
 
     for (let i = this.items.length - 1; i >= 0; i--) {

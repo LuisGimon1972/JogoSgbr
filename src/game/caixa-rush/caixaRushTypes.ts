@@ -1,5 +1,7 @@
 export type ComboTitle = 'SEM COMBO' | 'PDV ÁGIL' | 'ESTOQUE EM DIA' | 'NOTA EMITIDA';
 
+export type GameLevel = 'easy' | 'hard';
+
 export interface ConveyorItem {
   id: number;
   x: number;
@@ -38,6 +40,7 @@ export interface CaixaRushSnapshot {
   running: boolean;
   finished: boolean;
   victory: boolean;
+  level: GameLevel;
   score: number;
   bestScore: number;
   combo: number;
