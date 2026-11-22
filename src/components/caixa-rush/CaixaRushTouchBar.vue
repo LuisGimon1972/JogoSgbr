@@ -23,15 +23,6 @@
         @pointerleave="$emit('dir', 'right', false)"
         @pointercancel="$emit('dir', 'right', false)"
       />
-      <q-btn
-        dense
-        unelevated
-        color="positive"
-        text-color="dark"
-        class="text-weight-bold"
-        label="Bipar"
-        @click="$emit('scan')"
-      />
     </div>
 
     <q-btn

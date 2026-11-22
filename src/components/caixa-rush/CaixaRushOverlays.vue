@@ -5,14 +5,14 @@
       v-if="!hud.running && !hud.finished"
       class="overlay column items-center justify-center q-pa-sm text-center q-gutter-xs"
     >
-      <div class="text-subtitle1 text-weight-bold text-amber-4">SG CAIXA RUSH GAME</div>
+      <div class="text-subtitle1 text-weight-bold text-amber-2">SG CAIXA RUSH GAME</div>
       <p class="text-caption text-grey-3 q-ma-none overlay-desc">
         Para vencer, marque <strong>todos os itens certos</strong> no tempo estipulado e
         <strong>não marque nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
-        Bugs, Lentidão, Rejeição, Duplicidades ou Sangria Inválida).
+        Bugs, Lentidão, Rejeição, Duplicidades, Rejeição...).
       </p>
 
-      <div class="row q-gutter-xs full-width justify-center items-start q-mt-xs">
+      <div class="row q-gutter-xs full-width justify-center items-start q-mt-xs highlights-wrap">
         <q-card v-for="item in START_HIGHLIGHTS" :key="item.id" flat bordered class="promo-mini">
           <q-card-section class="promo-card-body text-left">
             <div class="promo-title text-weight-bold text-amber-3">{{ item.title }}</div>
@@ -21,7 +21,7 @@
         </q-card>
       </div>
 
-      <div class="row q-gutter-sm q-mt-xs">
+      <div class="row q-gutter-sm q-mt-xs justify-center actions-wrap">
         <q-btn
           dense
           color="light-blue-6"
@@ -87,7 +87,9 @@
         </template>
       </p>
 
-      <div class="row q-gutter-xs full-width justify-center items-start q-mt-xs relative-position">
+      <div
+        class="row q-gutter-xs full-width justify-center items-start q-mt-xs relative-position highlights-wrap"
+      >
         <q-card v-for="item in END_HIGHLIGHTS" :key="item.id" flat bordered class="promo-mini">
           <q-card-section class="promo-card-body text-left">
             <div class="promo-title text-weight-bold text-amber-3">{{ item.title }}</div>
@@ -96,7 +98,7 @@
         </q-card>
       </div>
 
-      <div class="row q-gutter-sm q-mt-xs relative-position">
+      <div class="row q-gutter-sm q-mt-xs justify-center relative-position actions-wrap">
         <q-btn
           dense
           color="light-blue-6"
@@ -178,7 +180,9 @@ defineEmits<{
   inset: 0;
   background: rgba(9, 13, 22, 0.9);
   backdrop-filter: blur(4px);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .overlay-victory {
@@ -235,6 +239,7 @@ defineEmits<{
 .promo-mini {
   min-height: 0;
   height: auto;
+  max-width: 220px;
   background: rgba(30, 41, 59, 0.88);
   border-color: rgba(56, 189, 248, 0.25);
 }
@@ -260,5 +265,63 @@ defineEmits<{
   border-radius: 6px;
   font-weight: bold;
   white-space: nowrap;
+  touch-action: manipulation;
+}
+
+/* Tablet */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .overlay-desc {
+    max-width: 520px;
+  }
+
+  .promo-mini {
+    max-width: 210px;
+  }
+
+  .action-btn {
+    font-size: 11.5px;
+    padding: 6px 11px;
+  }
+}
+
+/* Phone */
+@media (max-width: 599px) {
+  .overlay-desc {
+    max-width: 100%;
+    font-size: 0.7rem;
+    line-height: 1.32;
+  }
+
+  .highlights-wrap {
+    gap: 4px !important;
+  }
+
+  .promo-mini {
+    flex: 1 1 calc(50% - 6px);
+    max-width: 175px;
+    min-width: 120px;
+  }
+
+  .promo-card-body {
+    padding: 5px 7px;
+  }
+
+  .promo-title {
+    font-size: 0.68rem;
+  }
+
+  .promo-desc {
+    font-size: 0.65rem;
+    line-height: 1.2;
+  }
+
+  .actions-wrap {
+    gap: 6px !important;
+  }
+
+  .action-btn {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
 }
 </style>

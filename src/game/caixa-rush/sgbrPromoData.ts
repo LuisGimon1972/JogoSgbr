@@ -15,12 +15,12 @@ export const START_HIGHLIGHTS: PromoHighlight[] = [
   {
     id: 'estoque-em-dia',
     title: 'Estoque em Dia',
-    description: 'Controle integrado no dia a dia.',
+    description: 'Controle integrado no dia a dia. Controle de stock máximo e mínimo.',
   },
   {
     id: 'nota-emitida',
     title: 'Nota Emitida',
-    description: 'Agilidade na operação fiscal.',
+    description: 'Agilidade na operação fiscal, com emissão rápida e simplificada.',
   },
 ];
 

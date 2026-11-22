@@ -58,28 +58,28 @@ export const LANES_Y = [75, 145, 215] as const;
 export const SCANNER_Y = 292;
 
 export const GOOD_ITEMS = [
-  { label: 'VENDA PDV', color: '#22c55e', points: 100 },
+  { label: 'VENDA PDV', color: '#ef4444', points: 100 },
   { label: 'EFICIÊNCIA', color: '#38bdf8', points: 120 },
-  { label: 'NFC-e OK', color: '#a855f7', points: 140 },
+  { label: 'NFC-e OK', color: '#c2410c', points: 140 },
   { label: 'AGILIDADE', color: '#8a17f5', points: 140 },
-  { label: 'ORGANIZAÇÃO', color: '#125a2a', points: 140 },
-  { label: 'AGILIDADE', color: '#8a17f5', points: 140 },
-  { label: 'ESTABILIDADE', color: '#1740f5', points: 140 },
+  { label: 'ORGANIZAÇÃO', color: '#8d3f07', points: 140 },
+  { label: 'AGILIDADE', color: '#440625', points: 140 },
+  { label: 'ESTABILIDADE', color: '#1b0204', points: 140 },
   { label: 'CONTROLE', color: '#066374', points: 140 },
-  { label: 'BOM SERVIÇO', color: '#a855f7', points: 140 },
-  { label: 'EXCELÊNCIA', color: '#0aa342', points: 140 },
+  { label: 'BOM SERVIÇO', color: '#b91c1c', points: 140 },
+  { label: 'EXCELÊNCIA', color: '#ee140c', points: 140 },
 ] as const;
 
 export const BAD_ITEMS = [
-  { label: 'ERRO ESTOQUE', color: '#ef4444', penaltyTime: 3 },
+  { label: 'ERRO ESTOQUE', color: '#22c55e', penaltyTime: 3 },
   { label: 'FILA TRAVADA', color: '#f97316', penaltyTime: 2 },
-  { label: 'FALHA', color: '#8d3f07', penaltyTime: 2 },
+  { label: 'FALHA', color: '#125a2a', penaltyTime: 2 },
   { label: 'NOTA PENDENTE', color: '#e11d48', penaltyTime: 3 },
-  { label: 'BUGS', color: '#dc2626', penaltyTime: 3 },
+  { label: 'BUGS', color: '#770d39', penaltyTime: 3 },
   { label: 'INCONSISTÊNCIA', color: '#921313', penaltyTime: 3 },
   { label: 'DIVERGÊNCIA', color: '#ea580c', penaltyTime: 2 },
-  { label: 'LENTIDÃO', color: '#eaa40c', penaltyTime: 2 },
+  { label: 'LENTIDÃO', color: '#1740f5', penaltyTime: 2 },
   { label: 'REJEIÇÃO', color: '#be123c', penaltyTime: 3 },
-  { label: 'DUPLICIDADE', color: '#b91c1c', penaltyTime: 3 },
-  { label: 'SEM CONEXÃO', color: '#c2410c', penaltyTime: 2 },
+  { label: 'DUPLICIDADE', color: '#20023b', penaltyTime: 3 },
+  { label: 'SEM CONEXÃO', color: '#a855f7', penaltyTime: 2 },
 ] as const;
