@@ -12,7 +12,13 @@
           @pointerdown="onCanvasPointerDown"
         />
 
-        <CaixaRushOverlays :hud="hud" :copied="copied" @start="startMatch" @copy="copyScore" />
+        <CaixaRushOverlays
+          :hud="hud"
+          :copied="copied"
+          @start="startMatch"
+          @copy="copyScore"
+          @toggle-level="onToggleLevel"
+        />
       </div>
 
       <CaixaRushTouchBar
@@ -38,6 +44,7 @@ import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   type CaixaRushSnapshot,
+  type GameLevel,
 } from '../game/caixa-rush/caixaRushTypes';
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
@@ -58,6 +65,11 @@ const startMatch = (): void => {
   const now = performance.now();
   lastFrame = now;
   engine.startMatch(now);
+  syncHud();
+};
+
+const onToggleLevel = (nextLevel: GameLevel): void => {
+  engine.setLevel(nextLevel);
   syncHud();
 };
 
@@ -137,7 +149,6 @@ onUnmounted(() => {
   min-height: 100dvh;
 }
 
-/* Alterado de max-width: 540px para ampliar a largura do jogo em telas maiores */
 .game-shell {
   width: min(94vw, 1080px);
   max-width: 1080px;
@@ -157,5 +168,13 @@ onUnmounted(() => {
   height: auto;
   touch-action: none;
   cursor: pointer;
+}
+
+@media (max-width: 599px) {
+  .stage-box {
+    min-height: 290px;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

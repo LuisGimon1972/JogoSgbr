@@ -7,8 +7,8 @@
     >
       <div class="text-subtitle1 text-weight-bold text-amber-2">SG CAIXA RUSH GAME</div>
       <p class="text-caption text-grey-3 q-ma-none overlay-desc">
-        Para vencer, marque <strong>todos os itens certos</strong> no tempo estipulado e
-        <strong>não marque nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
+        Para vencer, clique em <strong>todos os itens certos</strong> no tempo estipulado e
+        <strong>não clique nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
         Bugs, Lentidão, Rejeição, Duplicidade, Rejeição...).
       </p>
 
@@ -225,6 +225,8 @@ function onToggle(val: boolean | null) {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  padding-top: 10px;
+  padding-bottom: 12px;
 }
 
 .overlay-victory {
@@ -334,46 +336,124 @@ function onToggle(val: boolean | null) {
 
 /* Phone */
 @media (max-width: 599px) {
+  .overlay {
+    justify-content: center !important;
+    padding: 6px 8px !important;
+    gap: 3px !important;
+    overflow-y: hidden !important;
+  }
+
   .overlay-desc {
     max-width: 100%;
-    font-size: 0.7rem;
-    line-height: 1.32;
+    font-size: 0.62rem;
+    line-height: 1.18;
   }
 
   .level-toggle {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
+    margin-top: 0 !important;
   }
 
   .highlights-wrap {
-    gap: 4px !important;
+    gap: 3px !important;
+    margin-top: 2px !important;
   }
 
   .promo-mini {
-    flex: 1 1 calc(50% - 6px);
-    max-width: 175px;
-    min-width: 120px;
+    flex: 1 1 calc(50% - 4px);
+    max-width: 155px;
+    min-width: 105px;
   }
 
   .promo-card-body {
-    padding: 5px 7px;
+    padding: 3px 5px;
   }
 
   .promo-title {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+    line-height: 1.1;
+    margin-bottom: 1px;
   }
 
   .promo-desc {
-    font-size: 0.65rem;
-    line-height: 1.2;
+    font-size: 0.58rem;
+    line-height: 1.12;
   }
 
   .actions-wrap {
-    gap: 6px !important;
+    gap: 5px !important;
+    margin-top: 3px !important;
+    flex-shrink: 0;
   }
 
   .action-btn {
-    font-size: 10px;
-    padding: 5px 8px;
+    font-size: 9.5px;
+    padding: 4px 8px;
+    min-height: 26px;
+  }
+}
+
+/* Resolução 320x533 e telas estreitas/curtas */
+@media (max-width: 360px) and (max-height: 600px) {
+  .overlay {
+    justify-content: flex-start !important;
+    padding: 4px 6px 6px !important;
+    gap: 2px !important;
+    overflow-y: auto !important;
+  }
+
+  .overlay .text-subtitle1 {
+    font-size: 0.78rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .overlay-desc {
+    max-width: 100%;
+    font-size: 0.56rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .level-toggle {
+    font-size: 0.6rem !important;
+    min-height: 20px !important;
+  }
+
+  .highlights-wrap {
+    gap: 2px !important;
+    margin-top: 1px !important;
+  }
+
+  .promo-mini {
+    flex: 1 1 calc(50% - 4px);
+    max-width: 142px;
+    min-width: 92px;
+  }
+
+  .promo-card-body {
+    padding: 2px 4px !important;
+  }
+
+  .promo-title {
+    font-size: 0.56rem !important;
+    line-height: 1.05 !important;
+    margin-bottom: 1px !important;
+  }
+
+  .promo-desc {
+    font-size: 0.52rem !important;
+    line-height: 1.08 !important;
+  }
+
+  .actions-wrap {
+    gap: 4px !important;
+    margin-top: 2px !important;
+    flex-shrink: 0;
+  }
+
+  .action-btn {
+    font-size: 8.5px !important;
+    padding: 3px 6px !important;
+    min-height: 22px !important;
   }
 }
 </style>

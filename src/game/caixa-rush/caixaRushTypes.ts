@@ -77,7 +77,7 @@ export const GOOD_ITEMS = [
 ] as const;
 
 export const BAD_ITEMS = [
-  { label: 'ERRO NO ESTOQUE', color: '#22c55e', penaltyTime: 3 },
+  { label: 'ERRO ESTOQUE', color: '#22c55e', penaltyTime: 3 },
   { label: 'FILA TRAVADA', color: '#f97316', penaltyTime: 2 },
   { label: 'FALHA', color: '#125a2a', penaltyTime: 2 },
   { label: 'NOTA PENDENTE', color: '#e11d48', penaltyTime: 3 },
