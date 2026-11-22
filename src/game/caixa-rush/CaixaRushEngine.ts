@@ -17,7 +17,7 @@ export type GameLevel = 'easy' | 'hard';
 
 const BEST_STORAGE_KEY = 'sg_caixa_rush_quasar_best_v1';
 const ITEM_WIDTH = 128;
-const ITEM_HEIGHT = 85;
+const ITEM_HEIGHT = 95;
 const ROUND_TOTAL_SECONDS = 60;
 const ATLAS_COLS = 4;
 const ATLAS_ROWS = 4;

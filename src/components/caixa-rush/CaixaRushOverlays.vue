@@ -9,7 +9,7 @@
       <p class="text-caption text-grey-3 q-ma-none overlay-desc">
         Para vencer, marque <strong>todos os itens certos</strong> no tempo estipulado e
         <strong>não marque nenhum item errado</strong> (Erro Estoque, Fila Travada, Nota Pendente,
-        Bugs, Lentidão, Rejeição, Duplicidades, Rejeição...).
+        Bugs, Lentidão, Rejeição, Duplicidade, Rejeição...).
       </p>
 
       <div class="row items-center justify-center q-mt-xs">
@@ -57,7 +57,6 @@
       </div>
     </div>
 
-    <!-- Overlay Final (Vitória ou Turno Encerrado) -->
     <div
       v-if="hud.finished"
       class="overlay column items-center justify-center q-pa-sm text-center q-gutter-xs"

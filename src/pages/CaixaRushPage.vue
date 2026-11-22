@@ -17,6 +17,8 @@
 
       <CaixaRushTouchBar
         :is-muted="hud.isMuted"
+        :on-restart="startMatch"
+        @restart="startMatch"
         @dir="onTouchDir"
         @scan="onScanPdv"
         @toggle-mute="toggleMute"

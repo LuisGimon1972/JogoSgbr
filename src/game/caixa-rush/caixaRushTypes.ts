@@ -55,7 +55,6 @@ export interface CaixaRushSnapshot {
   badScannedCount: number;
 }
 
-// Mais largo e menos alto na vertical
 export const CANVAS_WIDTH = 900;
 export const CANVAS_HEIGHT = 380;
 export const LANES_Y = [75, 145, 215] as const;
@@ -68,14 +67,17 @@ export const GOOD_ITEMS = [
   { label: 'RAPIDEZ', color: '#8a17f5', points: 140 },
   { label: 'INTEGRIDADE', color: '#8d3f07', points: 140 },
   { label: 'AGILIDADE', color: '#440625', points: 140 },
-  { label: 'TRANSPARENCIA', color: '#1b0204', points: 140 },
+  { label: 'TRANSPARÊNCIA', color: '#1b0204', points: 140 },
   { label: 'CONTROLE', color: '#066374', points: 140 },
   { label: 'BOM SERVIÇO', color: '#b91c1c', points: 140 },
   { label: 'SEGURANÇA', color: '#ee140c', points: 140 },
+  { label: 'DESEMPENHO', color: '#ee140c', points: 140 },
+  { label: 'USABILIDAD', color: '#ee140c', points: 140 },
+  { label: 'FLEXIBILIDADE', color: '#ee140c', points: 140 },
 ] as const;
 
 export const BAD_ITEMS = [
-  { label: 'ERRO ESTOQUE', color: '#22c55e', penaltyTime: 3 },
+  { label: 'ERRO NO ESTOQUE', color: '#22c55e', penaltyTime: 3 },
   { label: 'FILA TRAVADA', color: '#f97316', penaltyTime: 2 },
   { label: 'FALHA', color: '#125a2a', penaltyTime: 2 },
   { label: 'NOTA PENDENTE', color: '#e11d48', penaltyTime: 3 },
@@ -86,4 +88,6 @@ export const BAD_ITEMS = [
   { label: 'REJEIÇÃO', color: '#be123c', penaltyTime: 3 },
   { label: 'DUPLICIDADE', color: '#20023b', penaltyTime: 3 },
   { label: 'SEM CONEXÃO', color: '#a855f7', penaltyTime: 2 },
+  { label: 'INVALIDAÇÃO', color: '#a855f7', penaltyTime: 2 },
+  { label: 'INTERRUPÇÃO', color: '#a855f7', penaltyTime: 2 },
 ] as const;
