@@ -105,6 +105,15 @@ export class CaixaRushEngine {
   }
 
   private getComboInfo(): { title: ComboTitle; detail: string } {
+    if (this.combo >= 39) {
+      return { title: 'OPERAÇÃO EXCELENTE', detail: 'Eficiência máxima e operação sem falhas!' };
+    }
+    if (this.combo >= 16) {
+      return {
+        title: 'CAIXA DE ELITE',
+        detail: 'Agilidade, precisão e produtividade de alto nível!',
+      };
+    }
     if (this.combo >= 12) {
       return { title: 'NOTA EMITIDA', detail: 'Ritmo fiscal impecável na ponta do caixa!' };
     }
@@ -114,9 +123,10 @@ export class CaixaRushEngine {
     if (this.combo >= 3) {
       return { title: 'PDV ÁGIL', detail: 'Atendimento rápido e fluido!' };
     }
-    if (this.combo > 0) {
-      return { title: 'SEM COMBO', detail: 'Sem erros até agora! Marque todos os certos.' };
+    if (this.combo >= 4) {
+      return { title: 'GESTÃO EFICIENTE', detail: 'Controle e organização em cada venda!' };
     }
+
     return {
       title: 'SEM COMBO',
       detail: 'Marque todos os itens certos sem errar nenhum no tempo!',

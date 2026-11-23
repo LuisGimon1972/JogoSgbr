@@ -1,4 +1,11 @@
-export type ComboTitle = 'SEM COMBO' | 'PDV ÁGIL' | 'ESTOQUE EM DIA' | 'NOTA EMITIDA';
+export type ComboTitle =
+  | 'SEM COMBO'
+  | 'GESTÃO EFICIENTE'
+  | 'PDV ÁGIL'
+  | 'ESTOQUE EM DIA'
+  | 'NOTA EMITIDA'
+  | 'CAIXA DE ELITE'
+  | 'OPERAÇÃO EXCELENTE';
 
 export type GameLevel = 'easy' | 'hard';
 
