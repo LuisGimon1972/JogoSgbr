@@ -44,7 +44,7 @@
         dense
         unelevated
         class="action-btn q-px-sm"
-        @click.stop="exitGame"
+        @click.stop.prevent="exitGame"
       />
       <q-btn
         type="button"
@@ -84,6 +84,7 @@ const emit = defineEmits<{
   scan: [];
   'toggle-mute': [];
   restart: [count: number];
+  exit: [];
 }>();
 
 const restartCount = ref(0);
@@ -99,11 +100,23 @@ const handleRestart = () => {
   );
 };
 
-const exitGame = () => {
-  window.close();
-  setTimeout(() => {
-    router.push('/');
-  }, 100);
+const exitGame = async () => {
+  emit('exit');
+
+  try {
+    window.close();
+  } catch {
+    // Ignorado em navegadores que bloqueiam window.close()
+  }
+
+  try {
+    const failure = await router.push('/');
+    if (failure) {
+      window.location.assign('/');
+    }
+  } catch {
+    window.location.assign('/');
+  }
 };
 </script>
 
